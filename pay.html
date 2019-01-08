@@ -1,4 +1,4 @@
-CUI
+CUI2
 
 <script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>
 
@@ -16,11 +16,18 @@ var data = {
 };
 var razorpay = new Razorpay({
   key: 'rzp_test_lWHwMnGuDgD13V',
-  callback_url:'http://localhost/cust_ui/callback.php',
+  //callback_url:'http://localhost/cust_ui/callback.php',
   currency:"INR",
-  redirect:'true'
+  //redirect:'true'
 });
 
 razorpay.createPayment(data);
+  
+  razorpay.on('payment.success', function(resp) {
+    alert(resp.razorpay_payment_id),
+    alert(resp.razorpay_order_id),
+    alert(resp.razorpay_signature)}); // will pass payment ID, order ID, and Razorpay signature to success handler.
+
+  razorpay.on('payment.error', function(resp){alert(resp.error.description)});
 
 </script>
