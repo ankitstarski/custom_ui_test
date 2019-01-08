@@ -1,4 +1,4 @@
-CUI2
+CUI3
 
 <script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>
 
@@ -21,7 +21,12 @@ var razorpay = new Razorpay({
   //redirect:'true'
 });
 
-razorpay.createPayment(data);
+razorpay.createPayment(data,{
+   paused: true,
+   message: 'Confirming order..'
+});
+  
+ rp.emit('payment.resume');
   
   razorpay.on('payment.success', function(resp) {
     alert(resp.razorpay_payment_id),
