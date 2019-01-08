@@ -1,5 +1,5 @@
 CUI3
-
+<button id='btn'>Click me</button>
 <script type="text/javascript" src="https://checkout.razorpay.com/v1/razorpay.js"></script>
 
 <script>
@@ -20,19 +20,16 @@ var razorpay = new Razorpay({
   currency:"INR",
   //redirect:'true'
 });
+  
+document.getElementById('btn').addEventListener('click', function() {
+  razorpay.createPayment(data);
 
-razorpay.createPayment(data,{
-   paused: true,
-   message: 'Confirming order..'
-});
-  
- rp.emit('payment.resume');
-  
   razorpay.on('payment.success', function(resp) {
-    alert(resp.razorpay_payment_id),
-    alert(resp.razorpay_order_id),
-    alert(resp.razorpay_signature)}); // will pass payment ID, order ID, and Razorpay signature to success handler.
+    alert(resp.razorpay_payment_id);
+    alert(resp.razorpay_order_id);
+    alert(resp.razorpay_signature);
+  });
 
   razorpay.on('payment.error', function(resp){alert(resp.error.description)});
-
+});
 </script>
